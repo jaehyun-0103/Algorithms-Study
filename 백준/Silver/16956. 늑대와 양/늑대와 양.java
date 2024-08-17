@@ -1,15 +1,16 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        int R = Integer.parseInt(st.nextToken());
-        int C = Integer.parseInt(st.nextToken());
+        String[] tokens = br.readLine().split(" ");
+        int R = Integer.parseInt(tokens[0]);
+        int C = Integer.parseInt(tokens[1]);
+
         char[][] farm = new char[R][C];
         for (int i = 0; i < R; i++) {
             String line = br.readLine();
@@ -17,6 +18,7 @@ public class Main {
                 farm[i][j] = line.charAt(j);
             }
         }
+
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
                 if (farm[i][j] == 'W') {
@@ -31,7 +33,7 @@ public class Main {
             }
         }
 
-        System.out.println(1);
+        sb.append(1).append("\n");
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
                 if (farm[i][j] == '.') {
@@ -42,14 +44,11 @@ public class Main {
                         farm[i][j] = 'D';
                     }
                 }
+                sb.append(farm[i][j]);
             }
+            sb.append("\n");
         }
 
-        for (int i = 0; i < R; i++) {
-            for (int j = 0; j < C; j++) {
-                System.out.print(farm[i][j]);
-            }
-            System.out.println();
-        }
+        System.out.print(sb.toString());
     }
 }
