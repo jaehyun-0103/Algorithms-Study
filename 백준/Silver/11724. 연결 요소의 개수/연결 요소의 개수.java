@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Main {
     static ArrayList<Integer>[] graph;
@@ -9,10 +10,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        String[] firstLine = br.readLine().split(" ");
-        int N = Integer.parseInt(firstLine[0]);
-        int M = Integer.parseInt(firstLine[1]);
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
         graph = new ArrayList[N + 1];
         visited = new boolean[N + 1];
@@ -23,9 +24,9 @@ public class Main {
 
 
         for (int i = 0; i < M; i++) {
-            String[] otherLine = br.readLine().split(" ");
-            int u = Integer.parseInt(otherLine[0]);
-            int v = Integer.parseInt(otherLine[1]);
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
             graph[u].add(v);
             graph[v].add(u);
         }
