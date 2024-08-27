@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        char[] cogwheelOne = br.readLine().toCharArray();
-        char[] cogwheelTwo = br.readLine().toCharArray();
-        char[] cogwheelThree = br.readLine().toCharArray();
-        char[] cogwheelFour = br.readLine().toCharArray();
+        char[][] cogwheels = new char[4][8];
+        for (int i = 0; i < 4; i++) {
+            cogwheels[i] = br.readLine().toCharArray();
+        }
         int K = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < K; i++) {
@@ -24,8 +24,7 @@ public class Main {
 
             // 왼쪽 톱니바퀴들 확인
             for (int j = rotation - 1; j >= 0; j--) {
-                if (getTooth(j, j + 1, cogwheelOne, cogwheelTwo, cogwheelThree, cogwheelFour) !=
-                        getTooth(j + 1, j, cogwheelOne, cogwheelTwo, cogwheelThree, cogwheelFour)) {
+                if (cogwheels[j][2] != cogwheels[j + 1][6]) {
                     rotate[j] = -rotate[j + 1];
                 } else {
                     break;
@@ -34,8 +33,7 @@ public class Main {
 
             // 오른쪽 톱니바퀴들 확인
             for (int j = rotation + 1; j < 4; j++) {
-                if (getTooth(j, j - 1, cogwheelOne, cogwheelTwo, cogwheelThree, cogwheelFour) !=
-                        getTooth(j - 1, j, cogwheelOne, cogwheelTwo, cogwheelThree, cogwheelFour)) {
+                if (cogwheels[j][6] != cogwheels[j - 1][2]) {
                     rotate[j] = -rotate[j - 1];
                 } else {
                     break;
@@ -43,24 +41,20 @@ public class Main {
             }
 
             // 각 톱니바퀴 회전 수행
-            if (rotate[0] == 1) rotateClockwise(cogwheelOne);
-            else if (rotate[0] == -1) rotateCounterClockwise(cogwheelOne);
-
-            if (rotate[1] == 1) rotateClockwise(cogwheelTwo);
-            else if (rotate[1] == -1) rotateCounterClockwise(cogwheelTwo);
-
-            if (rotate[2] == 1) rotateClockwise(cogwheelThree);
-            else if (rotate[2] == -1) rotateCounterClockwise(cogwheelThree);
-
-            if (rotate[3] == 1) rotateClockwise(cogwheelFour);
-            else if (rotate[3] == -1) rotateCounterClockwise(cogwheelFour);
+            for (int j = 0; j < 4; j++) {
+                if (rotate[j] == 1) {
+                    rotateClockwise(cogwheels[j]);
+                } else if (rotate[j] == -1) {
+                    rotateCounterClockwise(cogwheels[j]);
+                }
+            }
         }
 
         int score = 0;
-        if (cogwheelOne[0] == '1') score += 1;
-        if (cogwheelTwo[0] == '1') score += 2;
-        if (cogwheelThree[0] == '1') score += 4;
-        if (cogwheelFour[0] == '1') score += 8;
+        if (cogwheels[0][0] == '1') score += 1;
+        if (cogwheels[1][0] == '1') score += 2;
+        if (cogwheels[2][0] == '1') score += 4;
+        if (cogwheels[3][0] == '1') score += 8;
 
         System.out.println(score);
     }
@@ -81,13 +75,5 @@ public class Main {
             cogwheel[i] = cogwheel[i + 1];
         }
         cogwheel[7] = temp;
-    }
-
-    // 톱니바퀴의 특정 위치의 값 로드
-    public static char getTooth(int from, int to, char[] cogwheelOne, char[] cogwheelTwo, char[] cogwheelThree, char[] cogwheelFour) {
-        if (from == 0) return cogwheelOne[(to == 1 ? 2 : 6)];
-        else if (from == 1) return cogwheelTwo[(to == 0 ? 6 : 2)];
-        else if (from == 2) return cogwheelThree[(to == 1 ? 6 : 2)];
-        else return cogwheelFour[(to == 2 ? 6 : 2)];
     }
 }
