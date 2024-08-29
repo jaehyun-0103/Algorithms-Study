@@ -43,22 +43,15 @@ public class Main {
         for (int i = 0; i < 4; i++) {
             if (operators[i] > 0) {
                 operators[i]--;
-                switch (i) {
-                    case 0:
-                        calculate(currentResult + numbers[index], index + 1);
-                        break;
-                    case 1:
-                        calculate(currentResult - numbers[index], index + 1);
-                        break;
-                    case 2:
-                        calculate(currentResult * numbers[index], index + 1);
-                        break;
-                    case 3:
-                        calculate(currentResult / numbers[index], index + 1);
-                        break;
-                }
+
+                if (i == 0) calculate(currentResult + numbers[index], index + 1);
+                else if (i == 1) calculate(currentResult - numbers[index], index + 1);
+                else if (i == 2) calculate(currentResult * numbers[index], index + 1);
+                else calculate(currentResult / numbers[index], index + 1);
+                
                 operators[i]++;
             }
         }
+
     }
 }
