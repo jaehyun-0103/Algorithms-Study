@@ -1,0 +1,7 @@
+-- 코드를 작성해주세요
+Select c.ID, c.GENOTYPE, p.GENOTYPE AS PARENT_GENOTYPE
+From ECOLI_DATA c
+Left Join ECOLI_DATA p
+On c.PARENT_ID=p.ID
+Where c.GENOTYPE&p.GENOTYPE=p.GENOTYPE
+Order By c.ID
