@@ -4,10 +4,8 @@ class Solution {
         int get=0;
         
         while(n>=a){
-            get=(n/a)*b; // 받은 콜라
-            answer+=get;
-            n=n%a; // 남은 빈병
-            n+=get;
+            answer+=(n/a)*b;;
+            n=n%a+(n/a)*b;
         }
         
         return answer;
